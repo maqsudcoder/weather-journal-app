@@ -13,8 +13,8 @@ function performAction(e) {
 
 	getData(baseURL, zipCode, apiKey)
 		.then(function (data) {
-			if (data.cod === '400') {
-				postData('/addWeatherData', { temp: data.main.temp, date: newDate, feelings: checkFillings(feelings) }); // go down to see this functino
+			if (data.cod != '400') {
+				postData('/addWeatherData', { temp: data.main.temp, date: newDate, feelings: checkFillings(feelings) });
 			} else {
 				alert('Invalid zip code');
 			}
@@ -38,6 +38,7 @@ const getData = async (baseURL, zipCode, apiKey) => {
 	try {
 		const data = await res.json();
 		console.log('data inside [getData] function', data);
+
 		return data;
 	} catch (error) {
 		console.log('something is happening here ', error);
@@ -71,8 +72,8 @@ const updateUI = async () => {
 	const request = await fetch('/all');
 	try {
 		const allData = await request.json();
-		document.getElementById('date').innerHTML = allData.date;
-		document.getElementById('temp').innerHTML = allData.temp;
+		document.getElementById('date').innerHTML = `date: ${allData.date}`;
+		document.getElementById('temp').innerHTML = `temprature: ${allData.temp}`;
 		document.getElementById('content').innerHTML = allData.feelings;
 	} catch (error) {
 		console.log('error', error);
