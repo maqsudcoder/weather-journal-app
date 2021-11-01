@@ -23,6 +23,8 @@ Just input zip code and it shows weather in your city and dont forget to enter y
 
 Just input zip code and it shows weather in your city and dont forget to enter your feelings if your not lazy person
 
+Before using the app install express cors and body-parser
+
 
 ## Languages & tools
 
@@ -34,3 +36,4 @@ Just input zip code and it shows weather in your city and dont forget to enter y
 ## Author
 
 Maqsud | [my github](https://github.com/maqsudcoder)
+
