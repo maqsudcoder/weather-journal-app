@@ -72,8 +72,8 @@ const postData = async (url = '', data = {}) => {
 const updateUI = async () => {
 	const request = await fetch('/all');
 	try {
-		if (allData.data != undefined && allData.temp != undefined) {
-			const allData = await request.json();
+		const allData = await request.json();
+		if (allData.date != undefined && allData.temp != undefined) {
 			document.getElementById('date').innerHTML = `date: ${allData.date}`;
 			document.getElementById('temp').innerHTML = `temprature in celcius: ${allData.temp}`;
 			document.getElementById('content').innerHTML = allData.feelings;
