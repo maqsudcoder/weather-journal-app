@@ -24,7 +24,7 @@ app.use(express.static('website'));
 
 // Setup Server
 const myport = 2005; // birth year 😀
-const server = app.listen(myport, () => console.log(`running on https://localhost:${myport}`));
+const server = app.listen(myport, () => console.log(`running on http://localhost:${myport}`));
 
 // GET route
 app.get('/all', (req, res) => res.send(projectData));

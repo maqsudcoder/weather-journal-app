@@ -1,6 +1,6 @@
 /* Global Variables */
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
-const apiKey = 'b5def460120bb2b4f2d662d47292aa5d'; // dont steal it 😜
+const apiKey = '&appid=b5def460120bb2b4f2d662d47292aa5d&units=metric'; // dont steal it 😜
 
 // perform action when click the button
 document.getElementById('generate').addEventListener('click', performAction);
@@ -10,6 +10,7 @@ function performAction(e) {
 	const zipCode = document.getElementById('zip').value;
 	const feelings = document.getElementById('feelings').value;
 	console.log('zip code', zipCode);
+	console.log(newDate);
 
 	getData(baseURL, zipCode, apiKey)
 		.then(function (data) {
@@ -29,12 +30,12 @@ function performAction(e) {
 }
 
 // Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let day = new Date();
+let newDate = day.getMonth() + 1 + '/' + day.getDate() + '/' + day.getFullYear();
 
 // get weather data 🌈
 const getData = async (baseURL, zipCode, apiKey) => {
-	const res = await fetch(`${baseURL}zip=${zipCode},us&appid=${apiKey}`);
+	const res = await fetch(`${baseURL}zip=${zipCode},us${apiKey}`);
 	try {
 		const data = await res.json();
 		console.log('data inside [getData] function', data);
@@ -71,10 +72,12 @@ const postData = async (url = '', data = {}) => {
 const updateUI = async () => {
 	const request = await fetch('/all');
 	try {
-		const allData = await request.json();
-		document.getElementById('date').innerHTML = `date: ${allData.date}`;
-		document.getElementById('temp').innerHTML = `temprature: ${allData.temp}`;
-		document.getElementById('content').innerHTML = allData.feelings;
+		if (allData.data != undefined && allData.temp != undefined) {
+			const allData = await request.json();
+			document.getElementById('date').innerHTML = `date: ${allData.date}`;
+			document.getElementById('temp').innerHTML = `temprature in celcius: ${allData.temp}`;
+			document.getElementById('content').innerHTML = allData.feelings;
+		}
 	} catch (error) {
 		console.log('error', error);
 	}
